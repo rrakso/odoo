@@ -225,7 +225,7 @@ class StockRule(models.Model):
                     rule.name, )
                 raise UserError(msg)
 
-            if rule.procure_method == 'mts_else_mto' or rule.produce_method == 'mts_else_mto_ByERS':
+            if rule.procure_method == 'mts_else_mto' or rule.procure_method == 'mts_else_mto_ByERS':
                 mtso_products_by_locations[rule.location_src_id].append(
                     procurement.product_id.id)
 
@@ -694,4 +694,3 @@ class ProcurementGroup(models.Model):
                 cr.close()
 
         return {}
-    
