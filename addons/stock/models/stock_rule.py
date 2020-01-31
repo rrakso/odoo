@@ -273,10 +273,11 @@ class StockRule(models.Model):
                     product_qty=qty_for_procurement)
                 procure_method = 'make_to_stock'
 
-        move_values = rule._get_stock_move_values(*procurement)
-        move_values['procure_method'] = procure_method
-        moves_values_by_company[procurement.company_id.id].append(
-            move_values)
+            if procurement.product_qty != 0:
+                move_values = rule._get_stock_move_values(*procurement)
+                move_values['procure_method'] = procure_method
+                moves_values_by_company[procurement.company_id.id].append(
+                    move_values)
 
         for company_id, moves_values in moves_values_by_company.items():
             # create the move as SUPERUSER because the current user may not have the rights to do it (mto product launched by a sale for example)
